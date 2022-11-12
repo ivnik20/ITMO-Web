@@ -5,42 +5,53 @@
   <meta name="description" content="Лучший сайт о Набокове">
   <meta name="author" content="Никита Иванов">
   <title>Nabokovivian</title>
-  <link href="outline-prototype-safe.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <!--<link href="outline-prototype-safe.css" rel="stylesheet">-->
 </head>
 <body>
-<header>
-  <img class="logo" src="Images/Lycaenidae.jpg" alt="logo">
-  <h1 align="center">Nabokovivian</h1>
-</header>
+<div class = "header">
+  <header>
+    <img class="logo" src="Images/Lycaenidae.jpg" alt="logo">
+    <h1>
+      Nabokovivian
+    </h1>
+  </header>
+</div>
 <main>
-  <nav>
-      <a href="#">Русский период</a>
-      <a href="#">Американский период</a>
-  </nav>
-<section>
-  <article>
-    <h3 align="center">Добро пожаловать</h3>
-    <p>Этот сайт предназначен, в первую очередь, для тех, кто хотел бы глубже разобраться в творчестве Набокова.
-      Здесь собрана информация о ключевых работах, посвященных каждому из романов.
-    <br>//Когда-нибудь здесь будет адекватное вступление, но сейчас мне лень его писать</p>
-  </article>
-  <article>
-  <blockquote>
-    <p>Не будь чересчур доверчив, узнавая о прошлом из уст настоящего. Остерегайся и честнейшего из посредников. Помни, всё рассказанное тебе, в действительности трояко: скроено рассказчиком, перекроено слушателем и скрыто от обоих мёртвым героем рассказа.</p>
-    <cite>The real life of Sebastian Knight</cite>
-  </blockquote>
-  </article>
-  <article><p><img src="Images/Nabokov.png" alt="Nabokov picture"></p>
-    <p>
-    <h3 align="center">Полезные ссылки</h3>
-    <ul>
-      <li><a href = "http://thenabokovian.org">Набоковиан</a>-крупнейший посвященный Набокову ресурс(англоязычный)</li>
-      <li><a href = "http://nabokov-lit.ru">Русскоязычный сайт</a>, где собраны многие произведения Набокова и о Набокове</li>
-    </ul>
-  </article>
-</section>
+  <div class = "menu">
+    <nav>
+      <ul class = "menu_list">
+        <li><a href="#">Русский период</a></li>
+        <li><a href="#">Американский период</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class = "content">
+    <section>
+      <article>
+        <h2 align="center">Добро пожаловать</h2>
+        <p>Этот сайт предназначен, в первую очередь, для тех, кто хотел бы глубже разобраться в творчестве Набокова.
+          Здесь собрана информация о ключевых работах, посвященных каждому из романов.
+          <br>//Когда-нибудь здесь будет адекватное вступление, но сейчас мне лень его писать</p>
+      </article>
+      <article>
+        <blockquote>
+          <p>Не будь чересчур доверчив, узнавая о прошлом из уст настоящего. Остерегайся и честнейшего из посредников. Помни, всё рассказанное тебе, в действительности трояко: скроено рассказчиком, перекроено слушателем и скрыто от обоих мёртвым героем рассказа.</p>
+          <cite>"The real life of Sebastian Knight"</cite>
+        </blockquote>
+      </article>
+      <article><img class = "picture" src="Images/Nabokov.png" alt="Nabokov picture">
+        <p>
+        <h2 align="center">Полезные ссылки</h2>
+        <ul>
+          <li><a href = "http://thenabokovian.org">Набоковиан</a>-крупнейший посвященный Набокову ресурс(англоязычный)</li>
+          <li><a href = "http://nabokov-lit.ru">Русскоязычный сайт</a>, где собраны многие произведения Набокова и о Набокове</li>
+        </ul>
+      </article>
+    </section>
+  </div>
 </main>
-<footer>
+<footer class = "footer">
   <p align = "center">© 2022 <a href="https://tlgg.ru/@caracarn" >Nikita Ivanov</a></p>
 </footer>
 </body>
