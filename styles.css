@@ -1,4 +1,4 @@
-html {
+.html {
     background-color: #354790;
 }
 .menu_list{
@@ -7,13 +7,13 @@ html {
     overflow: hidden;
     background-color: #44A6FC;
 }
-.menu_list li{
+.menu_li{
     float: top;
     list-style-type: none;
     text-align: center;
     padding: 16px;
 }
-.menu a {
+.menu_a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
@@ -24,7 +24,7 @@ html {
 .header {
     color: #44C5FC;
 }
-.header h1{
+.header_h1{
     font-size: 50px;
     text-align: center;
     position: relative;
@@ -42,23 +42,24 @@ html {
     width: 30%;
     box-shadow: 0px 0px 100px 0px grey;
 }
-.content article{
+.content_article{
     margin: 50px
 }
-.content h2{
+.content_h2{
     font-size: 35px;
     text-align: center;
     position: relative;
+    align: "center";
     color: #44C5FC;
 }
-.content blockquote{
+.blockquote{
     font-style: italic;
 }
-cite{
+.blockquote_cite{
     margin: 20px;
     color: #e4e7de;
 }
-p {
+.content_p {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
@@ -66,13 +67,13 @@ p {
     display: block;
     overflow: hidden;
 }
-ul {
+.content_ul {
     font-size:20px;
     color:#e4e7de;
 }
-ul a{
+.content_a{
     color:#44FCD5;
 }
-.footer a{
+.footer_a{
     color: #44C5FC;
 }
