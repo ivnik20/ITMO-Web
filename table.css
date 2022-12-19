@@ -1,0 +1,25 @@
+.table {
+    width: 100%;
+}
+
+.td {
+    border: 1px solid;
+}
+.tr{
+    border: 1px solid;
+    text-align: center;
+}
+    .tr-odd{
+        background: #44C5FC;/* фон нечетных строк */
+        color: black;
+    }
+
+    .tr-even {
+        background: #49D1E6;/* фон четных строк */
+        color: black;
+    }
+
+    .tr-header {
+        background: #032870;
+        color: white;
+    }
