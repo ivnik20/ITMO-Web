@@ -10,12 +10,12 @@
     text-align: center;
 }
     .tr-odd{
-        background: #44C5FC;/* фон нечетных строк */
+        background: #44C5FC;
         color: black;
     }
 
     .tr-even {
-        background: #49D1E6;/* фон четных строк */
+        background: #49D1E6;
         color: black;
     }
 
