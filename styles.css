@@ -81,6 +81,9 @@
 .footer_a{
     color: #44C5FC;
 }
+.footer_p{
+    align: "center";
+}
 .block_right{
     flex: 30 0 30%;
     float: right;
