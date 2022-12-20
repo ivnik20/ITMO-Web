@@ -23,6 +23,10 @@
     display: block;
     border: 3px solid #49D1E6;
 }
+.menu_a:hover{
+    color: #29bb9c;
+    background-color: #3d88db;
+}
 .header {
     color: #44C5FC;
     height: 200px;
