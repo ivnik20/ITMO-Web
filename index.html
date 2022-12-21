@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru" class="html">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Лучший сайт о Набокове">
-  <meta name="author" content="Никита Иванов">
-  <title>Nabokovivian</title>
-  <link href="styles.css" rel="stylesheet">
-  <link href="table.css" rel="stylesheet">
-  <!--<link href="outline-prototype-safe.css" rel="stylesheet">-->
+    <meta charset="UTF-8">
+    <meta name="description" content="Лучший сайт о Набокове">
+    <meta name="author" content="Никита Иванов">
+    <title>Nabokovivian</title>
+    <link href="styles.css" rel="stylesheet">
+    <link href="table.css" rel="stylesheet">
+    <script src="scripts/timeScript.js"></script>
+    <!--<link href="outline-prototype-safe.css" rel="stylesheet">-->
 </head>
 <body>
   <header class = "header">
     <img class="logo" src="Images/Lycaenidae.jpg" alt="logo">
     <h1 class="header_h1">
-      Nabokovivian
+      <a href="index.html" class="header_a">Nabokovivian</a>
     </h1>
   </header>
 <main>
   <div class = "menu">
     <nav>
       <ul class = "menu_list">
-        <li class="menu_li"><a href="#" class = "menu_a">Русский период</a></li>
-        <li class="menu_li"><a href="#" class = "menu_a">Американский период</a></li>
+        <li class="menu_li"><a href="russian.html" class = "menu_a">Русский период</a></li>
+        <li class="menu_li"><a href="american.html" class = "menu_a">Американский период</a></li>
       </ul>
     </nav>
   </div>
@@ -142,7 +143,7 @@
   </div>
 </main>
 <footer class = "footer">
-  <p align = "center">© 2022 <a href="https://tlgg.ru/@caracarn" class="footer_a">Nikita Ivanov</a></p>
+  <p align = "center" id="load-time">© 2022 <a href="https://tlgg.ru/@caracarn" class="footer_a">Nikita Ivanov</a> </p>
 </footer>
 </body>
 </html>
