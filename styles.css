@@ -23,12 +23,20 @@
     display: block;
     border: 3px solid #49D1E6;
 }
+.menu_a-active {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #4463fc;
+    display: block;
+    border: 3px solid #4463fc;
+    background-color: #46f3e5
+}
 .menu_a:hover{
     color: #29bb9c;
     background-color: #3d88db;
 }
 .header {
-    color: #44C5FC;
     height: 200px;
 }
 .header_h1{
@@ -36,6 +44,10 @@
     text-align: center;
     position: relative;
     top:-100px;
+}
+.header_a{
+    text-decoration: none;
+    color: #44C5FC;
 }
 .logo {
     height: 100px;
