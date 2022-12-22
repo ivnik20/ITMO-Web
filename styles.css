@@ -124,3 +124,11 @@
         display: none;
     }
 }
+.button {
+    padding:10px;
+    border:none;
+    background-color: #3d88db;
+    color: #032870;
+    font-weight:600;
+    border-radius:5px;
+}
