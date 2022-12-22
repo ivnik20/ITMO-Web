@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru" class="html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Лучший сайт о Набокове">
+  <meta name="author" content="Никита Иванов">
+  <title>Nabokovivian</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="swiper.css">
+  <script src="scripts/timeScript.js"></script>
+</head>
+<body class="body">
+<header class = "header">
+  <img class="logo" src="Images/Lycaenidae.jpg" alt="logo">
+  <h1 class="header_h1">
+    <a href="index.html" class="header_a">Nabokovivian</a>
+  </h1>
+</header>
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <img src="Images/Nabokov.png" alt="Nabokov picture" class="swiper-lazy"/>
+      <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <div class="swiper-slide">
+      <img src="Images/Nabokov2.jpg" alt="Nabokov picture" class="swiper-lazy"/>
+      <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <div class="swiper-slide">
+      <img src="Images/Nabokov3.jpg" alt="Nabokov picture" class="swiper-lazy"/>
+      <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <div class="swiper-slide">
+      <img src="Images/Nabokov4.jpg" alt="Nabokov picture" class="swiper-lazy"/>
+      <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <div class="swiper-slide">
+      <img src="Images/Nabokov5.jpg" alt="Nabokov picture" class="swiper-lazy"/>
+      <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+  </div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-pagination"></div>
+</div>
+<footer class = "footer">
+  <p align = "center" id="load-time">© 2022 <a href="https://tlgg.ru/@caracarn" class="footer_a">Nikita Ivanov</a> </p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      lazy: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+</html>

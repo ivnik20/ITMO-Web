@@ -118,6 +118,7 @@
     bottom: 0;
     width: 1250px;
     background-color: #354790;
+    z-index: 1;
 }
 @media screen and (max-width: 1000px) {
     .footer {
