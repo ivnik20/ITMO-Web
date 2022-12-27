@@ -27,7 +27,7 @@
     <textarea name="message" rows="2" class="type-1" id="description" placeholder="Комментарий" required autocomplete="off"></textarea>
 </form>
 <button class = "button" id="submit" onclick="saveComment()"> Отправить </button>
-<table id="table" class="table">
+<table id="table" class="table" >
     <thead>
     <tr class="tr-header tr">
         <th>Имя</th>
@@ -36,6 +36,7 @@
     </tr>
     </thead>
 </table>
+<img id = "preloader" class="picture" src="Images/loading.gif">
 <script src="scripts/mockComments.js"></script>
 <footer class = "footer">
     <p align = "center" id="load-time">© 2022 <a href="https://tlgg.ru/@caracarn" class="footer_a">Nikita Ivanov</a> </p>
