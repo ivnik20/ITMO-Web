@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" class="html">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Лучший сайт о Набокове">
+    <meta name="author" content="Никита Иванов">
+    <title>Nabokovivian</title>
+    <link href="styles/styles.css" rel="stylesheet">
+    <link href="styles/table.css" rel="stylesheet">
+    <link href="styles/form.css" rel="stylesheet">
+    <script src="scripts/timeScript.js"></script>
+    <script src="scripts/saveComment.js"></script>
+    <script src="scripts/showComment.js"></script>
+</head>
+<body>
+<header class = "header">
+    <img class="logo" src="Images/Lycaenidae.jpg" alt="logo">
+    <h1 class="header_h1">
+        <a href="index.html" class="header_a">Nabokovivian</a>
+    </h1>
+</header>
+<h2 class="content_h2">Предложить книгу для добавления:</h2>
+<form>
+    <input type="text" name="name" class="type-1" id="author" placeholder="Автор" required autocomplete="off"/>
+    <input type="text" name="name" class="type-1" id="book" placeholder="Название книги" required autocomplete="off"/>
+    <textarea name="message" rows="2" class="type-1" id="description" placeholder="Комментарий" required autocomplete="off"></textarea>
+</form>
+<button class = "button" id="submit" onclick="saveComment()"> Отправить </button>
+<table id="table" class="table" >
+    <thead>
+    <tr class="tr-header tr">
+        <th>Имя</th>
+        <th>Книга</th>
+        <th>Комментарий</th>
+    </tr>
+    </thead>
+</table>
+<img id = "preloader" class="picture" src="Images/loading.gif">
+<script src="scripts/mockComments.js"></script>
+<footer class = "footer">
+    <p align = "center" id="load-time">© 2022 <a href="https://tlgg.ru/@caracarn" class="footer_a">Nikita Ivanov</a> </p>
+</footer>
+</body>
+</html>
