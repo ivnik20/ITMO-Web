@@ -18,6 +18,6 @@ async function bootstrap() {
   app.set('view engine', 'hbs');
   hbs.registerPartials(__dirname + '/views/partials');
   app.use(express.static('public'));
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
