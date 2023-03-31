@@ -25,6 +25,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "express-handlebars": "^7.0.4",
     "hbs": "^4.2.0",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
