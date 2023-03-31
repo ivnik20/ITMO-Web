@@ -1,12 +1,37 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LoggingInterceptor } from './logging.interceptor';
 
 @Controller()
+@UseInterceptors(LoggingInterceptor)
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  root() {
+    return { loggedIn: false, user: 'Никита' };
+  }
+
+  @Get('/american')
+  @Render('american')
+  american() {
+    return {};
+  }
+
+  @Get('/russian')
+  @Render('russian')
+  russian() {
+    return {};
+  }
+
+  @Get('/comments')
+  @Render('comments')
+  comments() {
+    return {};
+  }
+
+  @Get('/gallery')
+  @Render('gallery')
+  gallery() {
+    return { layout: 'gallery_layout' };
   }
 }
