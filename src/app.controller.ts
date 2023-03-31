@@ -1,5 +1,4 @@
 import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
-import { AppService } from './app.service';
 import { LoggingInterceptor } from './logging.interceptor';
 
 @Controller()
@@ -32,6 +31,6 @@ export class AppController {
   @Get('/gallery')
   @Render('gallery')
   gallery() {
-    return { layout: 'gallery_layout' };
+    return { layout: 'layouts/gallery_layout' };
   }
 }
