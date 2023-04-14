@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  name  String?
+  suggested_books Book[] @relation ("suggested")
+  approved_books Book[] @relation ("approved")
+  role Role     @default(USER)
+  comments Comment[]
+  reviews Review[]
+}
+
+model Comment {
+  id        Int      @default(autoincrement()) @id
+  content   String?
+  published Boolean? @default(false)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  category Category  @relation(fields: [categoryTitle], references: [title])
+  categoryTitle String
+  date DateTime
+}
+
+model Book {
+    id Int @default(autoincrement()) @id
+    title String
+    bookAuthor String
+    author User?    @relation("suggested", fields: [authorId], references: [id])
+    authorId  Int?
+    comment String?
+    approved Boolean @default(false)
+    approver User?    @relation("approved", fields: [adminId], references: [id])
+    adminId Int?
+    category Category  @relation(fields: [categoryTitle], references: [title])
+    categoryTitle String
+    reviews Review[]
+}
+
+model Category {
+    title String @unique
+    books Book[]
+    comment Comment[]
+    period Period
+}
+
+model Review {
+    id Int @default(autoincrement()) @id
+    rating Int
+    review String
+    date DateTime
+    book Book @relation(fields: [bookId], references: [id])
+    bookId Int
+    userId Int
+    user User @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum Period {
+    RUSSIAN
+    AMERICAN
+}
