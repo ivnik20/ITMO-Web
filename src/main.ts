@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const express = await require('express');
@@ -12,6 +13,14 @@ async function bootstrap() {
   app.set('view options', { layout: 'layouts/layout' });
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.use(express.static('public'));
+
+  const config = new DocumentBuilder()
+    .setTitle('Nabokovian')
+    .setDescription('Nabokovian API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
