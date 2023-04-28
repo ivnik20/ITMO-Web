@@ -14,8 +14,6 @@ export class ReviewService {
     const date = body.date;
     const bookId = body.bookId;
     const userId = body.userId;
-    //const book = body.book;
-    //const user = body.user;
     try {
       const reviewObj = prisma.review.create({
         data: {
@@ -25,8 +23,6 @@ export class ReviewService {
           date,
           bookId,
           userId,
-          //book,
-          //user,
         },
       });
       return reviewObj;

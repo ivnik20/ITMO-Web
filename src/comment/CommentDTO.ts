@@ -4,7 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CommentDTO {
   @ApiProperty()
   @IsNumber()
-  @IsPositive()
   id: number;
 
   @ApiProperty()
@@ -14,7 +13,6 @@ export class CommentDTO {
 
   @ApiProperty()
   @IsNumber()
-  @IsPositive()
   @IsNotEmpty()
   authorId: number | null;
 

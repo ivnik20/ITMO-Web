@@ -4,12 +4,10 @@ import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 export class ReviewDTO {
   @ApiProperty()
   @IsNumber()
-  @IsPositive()
   id: number;
 
   @ApiProperty()
   @IsNumber()
-  @IsPositive()
   rating: number;
 
   @ApiProperty()
@@ -23,12 +21,10 @@ export class ReviewDTO {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  @IsPositive()
   bookId: number;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  @IsPositive()
   userId: number;
 }

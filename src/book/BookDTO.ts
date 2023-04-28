@@ -4,7 +4,6 @@ import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 export class BookDTO {
   @ApiProperty()
   @IsNumber()
-  @IsPositive()
   id: number;
 
   @ApiProperty()
@@ -18,7 +17,6 @@ export class BookDTO {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  @IsPositive()
   authorId: number | null;
 
   @ApiProperty()
