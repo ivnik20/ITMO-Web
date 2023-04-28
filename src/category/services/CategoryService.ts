@@ -42,4 +42,22 @@ export class CategoryService {
       },
     });
   }
+
+  /*async forPeriod(per: Period) {
+    return prisma.category.findMany({
+      where: {
+        period: per,
+      },
+      select: {
+        books: true,
+      },
+    });
+  }*/
+  forPeriod(per: Period) {
+    return prisma.category.findMany({
+      where: {
+        period: per,
+      },
+    });
+  }
 }

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -23,10 +24,19 @@ export class ReviewController {
   @ApiResponse({
     status: 201,
     description: 'The review has been successfully created.',
+    type: ReviewModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
   })
   @Post('')
   async create(@Body() body: ReviewModel): Promise<ReviewModel> {
@@ -36,24 +46,63 @@ export class ReviewController {
   @ApiOperation({
     summary: 'Get review by id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The review was successfully provided',
+    type: ReviewModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/byid/:id')
-  async getReviewById(@Param('id') id: string): Promise<ReviewModel> {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/id/:id')
+  async getReviewById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<ReviewModel> {
     return this.reviewService.findReviewId(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all reviews for book',
+  })
+  @ApiParam({ name: 'bookId', type: 'number' })
+  @ApiResponse({
+    status: 200,
+    description: 'Reviews were successfully provided',
+    type: ReviewModel,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/bookId/:bookId')
+  async getReviewsByBook(
+    @Param('bookId') bookId: number,
+  ): Promise<ReviewModel[]> {
+    return this.reviewService.findReviewsForBook(bookId);
   }
 
   @ApiOperation({
     summary: 'Delete the review with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The review was successfully deleted',
@@ -62,8 +111,16 @@ export class ReviewController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byid/:id')
-  async deleteReviewById(@Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('/id/:id')
+  async deleteReviewById(@Param('id', ParseIntPipe) id: number) {
     return this.reviewService.deleteReviewById(id);
   }
 }

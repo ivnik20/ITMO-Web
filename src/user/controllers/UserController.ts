@@ -23,10 +23,19 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: 'The user has been successfully created.',
+    type: UserModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
   })
   @Post('')
   async create(@Body() body: UserModel): Promise<UserModel> {
@@ -38,14 +47,23 @@ export class UserController {
   })
   @ApiParam({ name: 'username', type: 'string' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The user was successfully provided',
+    type: UserModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/byusername/:username')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/name/:username')
   async getUserByUsername(
     @Param('username') username: string,
   ): Promise<UserModel> {
@@ -57,14 +75,23 @@ export class UserController {
   })
   @ApiParam({ name: 'id', type: 'string' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The user was successfully provided',
+    type: UserModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/byid/:id')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/id/:id')
   async getUserById(@Param('id') id: string): Promise<UserModel> {
     return this.userService.findUserId(id);
   }
@@ -81,7 +108,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/adminroleusername/:username')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('/name_role/:username')
   async setUserRoleAdminUsername(@Param('username') username: string) {
     return this.userService.setAdminRoleUsername(username);
   }
@@ -98,7 +133,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/adminroleid/:id')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('/id_role/:id')
   async setUserRoleAdminId(@Param('id') id: string) {
     return this.userService.setAdminRoleId(id);
   }
@@ -115,7 +158,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/clientroleusername/:username')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('/name/:username')
   async setUserRoleClientUsername(@Param('username') username: string) {
     return this.userService.setClientRoleUsername(username);
   }
@@ -132,7 +183,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/clientroleid/:id')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('/id/:id')
   async setUserRoleClientId(@Param('id') id: string) {
     return this.userService.setClientRoleId(id);
   }
@@ -149,7 +208,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byusername/:username')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('/name/:username')
   async deleteUserByUsername(@Param('username') username: string) {
     return this.userService.deleteUserByUsername(username);
   }
@@ -166,7 +233,15 @@ export class UserController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byid/:id')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('/id/:id')
   async deleteUserById(@Param('id') id: string) {
     return this.userService.deleteUserById(id);
   }

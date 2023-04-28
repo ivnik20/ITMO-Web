@@ -29,17 +29,15 @@ export class CommentService {
     }
   }
 
-  public findCommentId(id: string) {
-    const num = Number(id);
+  public findCommentId(id: number) {
     return prisma.comment.findUnique({
       where: {
-        id: num,
+        id: id,
       },
     });
   }
 
-  async deleteCommentById(id) {
-    id = Number(id);
+  async deleteCommentById(id: number) {
     const comment = await prisma.comment.delete({
       where: {
         id,
@@ -47,7 +45,7 @@ export class CommentService {
     });
   }
 
-  async publishComment(id: string) {
+  async publishComment(id: number) {
     const num = Number(id);
     const comment = await prisma.comment.update({
       where: {
@@ -63,6 +61,15 @@ export class CommentService {
     return prisma.comment.findMany({
       where: {
         published: true,
+      },
+    });
+  }
+
+  publishedForCategory(title: string) {
+    return prisma.comment.findMany({
+      where: {
+        published: true,
+        categoryTitle: title,
       },
     });
   }

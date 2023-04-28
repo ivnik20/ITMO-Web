@@ -35,20 +35,26 @@ export class ReviewService {
     }
   }
 
-  public findReviewId(id: string) {
-    const num = Number(id);
+  public findReviewId(id: number) {
     return prisma.review.findUnique({
       where: {
-        id: num,
+        id: id,
       },
     });
   }
 
-  async deleteReviewById(id) {
-    id = Number(id);
+  async deleteReviewById(id: number) {
     const review = await prisma.review.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  findReviewsForBook(bookId: number) {
+    return prisma.review.findMany({
+      where: {
+        bookId: bookId,
       },
     });
   }

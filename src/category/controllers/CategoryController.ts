@@ -25,10 +25,19 @@ export class CategoryController {
   @ApiResponse({
     status: 201,
     description: 'The category has been successfully created.',
+    type: CategoryModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
   })
   @Post('')
   async create(@Body() body: CategoryModel): Promise<CategoryModel> {
@@ -40,16 +49,55 @@ export class CategoryController {
   })
   @ApiParam({ name: 'title', type: 'string' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The category was successfully provided',
+    type: CategoryModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/byname/:name')
-  async getCategoryById(@Param('name') name: string): Promise<CategoryModel> {
-    return this.categoryService.findCategoryTitle(name);
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/title/:title')
+  async getCategoryByTitle(
+    @Param('title') title: string,
+  ): Promise<CategoryModel> {
+    return this.categoryService.findCategoryTitle(title);
+  }
+
+  @ApiOperation({
+    summary: 'Get all categories for period',
+  })
+  @ApiParam({ name: 'period', enum: Period })
+  @ApiResponse({
+    status: 200,
+    description: 'Categories were successfully provided',
+    type: CategoryModel,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/period/:period')
+  async getCategories(
+    @Param('period') period: Period,
+  ): Promise<CategoryModel[]> {
+    return this.categoryService.forPeriod(period);
   }
 
   @ApiOperation({
@@ -64,8 +112,16 @@ export class CategoryController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byname/:name')
-  async deleteCategoryByTitle(@Param('name') id: string) {
-    return this.categoryService.deleteCategoryByTitle(id);
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('/title/:title')
+  async deleteCategoryByTitle(@Param('title') title: string) {
+    return this.categoryService.deleteCategoryByTitle(title);
   }
 }

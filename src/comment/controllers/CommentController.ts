@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -11,7 +12,6 @@ import {
 import { CommentService } from '../../comment/services/CommentService';
 import { CommentDTO as CommentModel } from '../CommentDTO';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import {BookDTO as BookModel} from "../../book/BookDTO";
 
 @ApiTags('Comment')
 @Controller('/comments')
@@ -24,10 +24,19 @@ export class CommentController {
   @ApiResponse({
     status: 201,
     description: 'The comment has been successfully created.',
+    type: CommentModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
   })
   @Post('')
   async create(@Body() body: CommentModel): Promise<CommentModel> {
@@ -37,41 +46,63 @@ export class CommentController {
   @ApiOperation({
     summary: 'Get comment by id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The comment was successfully provided',
+    type: CommentModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/byid/:id')
-  async getCommentById(@Param('id') id: string): Promise<CommentModel> {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/id/:id')
+  async getCommentById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CommentModel> {
     return this.commentService.findCommentId(id);
   }
 
   @ApiOperation({
-    summary: 'Get all published comments',
+    summary: 'Get comments for category by title',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'title', type: 'string' })
   @ApiResponse({
-    status: 201,
-    description: 'Books were successfully provided',
+    status: 200,
+    description: 'Comments were successfully provided',
+    type: CommentModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('getallpublished')
-  async getPublishedPosts(): Promise<CommentModel[]> {
-    return this.commentService.published();
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/title/:title')
+  async getPublishedComments(
+    @Param('title') title: string,
+  ): Promise<CommentModel[]> {
+    return this.commentService.publishedForCategory(title);
   }
 
   @ApiOperation({
     summary: 'Publish a comment by id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The comment was successfully published',
@@ -80,15 +111,23 @@ export class CommentController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/publishcommentid/:id')
-  async setUserRoleAdminUsername(@Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('/id/:id')
+  async publishComment(@Param('id', ParseIntPipe) id: number) {
     return this.commentService.publishComment(id);
   }
 
   @ApiOperation({
     summary: 'Delete the comment with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The comment was successfully deleted',
@@ -97,8 +136,16 @@ export class CommentController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byid/:id')
-  async deleteCommentById(@Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('/id/:id')
+  async deleteCommentById(@Param('id', ParseIntPipe) id: number) {
     return this.commentService.deleteCommentById(id);
   }
 }

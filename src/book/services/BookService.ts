@@ -1,4 +1,4 @@
-import { Category, PrismaClient } from '@prisma/client';
+import { Category, Period, PrismaClient } from '@prisma/client';
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
 import { BookDTO as BookModel } from '../BookDTO';
@@ -37,20 +37,18 @@ export class BookService {
   }
 
   public findBookBookname(bookname: string) {
-    const str = String(bookname);
     const book = prisma.book.findFirst({
       where: {
-        title: str,
+        title: bookname,
       },
     });
     return book;
   }
 
-  public findBookId(id: string) {
-    const num = Number(id);
+  public findBookId(id: number) {
     return prisma.book.findUnique({
       where: {
-        id: num,
+        id: id,
       },
     });
   }
@@ -72,7 +70,7 @@ export class BookService {
     });
   }
 
-  async approveBook(id: string, adminId: string) {
+  async approveBook(id: number, adminId: number) {
     const num = Number(id);
     const book = await prisma.book.update({
       where: {
@@ -89,6 +87,17 @@ export class BookService {
     return prisma.book.findMany({
       where: {
         approved: true,
+      },
+    });
+  }
+
+  async forPeriod(per: Period) {
+    return prisma.book.findMany({
+      where: {
+        approved: true,
+        category: {
+          period: per,
+        },
       },
     });
   }

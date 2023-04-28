@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -11,6 +12,7 @@ import {
 import { BookService } from '../services/BookService';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookDTO as BookModel } from '../BookDTO';
+import { Period } from '@prisma/client';
 
 @ApiTags('Book')
 @Controller('/books')
@@ -23,10 +25,19 @@ export class BookController {
   @ApiResponse({
     status: 201,
     description: 'The book has been successfully created.',
+    type: BookModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
   })
   @Post('')
   async create(@Body() body: BookModel): Promise<BookModel> {
@@ -38,14 +49,23 @@ export class BookController {
   })
   @ApiParam({ name: 'bookname', type: 'string' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The book was successfully provided',
+    type: BookModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('/bybookname/:bookname')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('name/:bookname')
   async getBookByBookname(
     @Param('bookname') bookname: string,
   ): Promise<BookModel> {
@@ -53,54 +73,107 @@ export class BookController {
   }
 
   @ApiOperation({
-    summary: 'Get book by id',
+    summary: 'Get books for period',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'period', enum: Period })
   @ApiResponse({
-    status: 201,
-    description: 'The book was successfully provided',
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.',
-  })
-  @Get('/byid/:id')
-  async getBookById(@Param('id') id: string): Promise<BookModel> {
-    return this.bookService.findBookId(id);
-  }
-
-  @ApiOperation({
-    summary: 'Get all approved books',
-  })
-  @ApiParam({ name: 'id', type: 'string' })
-  @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Books were successfully provided',
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Get('getallapproved')
-  async getPublishedPosts(): Promise<BookModel[]> {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('period/:period')
+  async getBooksByPeriod(
+    @Param('period') period: Period,
+  ): Promise<BookModel[]> {
+    return this.bookService.forPeriod(period);
+  }
+
+  @ApiOperation({
+    summary: 'Get book by id',
+  })
+  @ApiParam({ name: 'id', type: 'number' })
+  @ApiResponse({
+    status: 200,
+    description: 'The book was successfully provided',
+    type: BookModel,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('id/:id')
+  async getBookById(@Param('id', ParseIntPipe) id: number): Promise<BookModel> {
+    return this.bookService.findBookId(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all approved books',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Books were successfully provided',
+    type: BookModel,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/books/all')
+  async getApproved(): Promise<BookModel[]> {
     return this.bookService.approved();
   }
 
   @ApiOperation({
     summary: 'Approve and publish suggested book by id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The book was successfully approved',
+    type: BookModel,
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
-  @Patch('/approvebookid/:id:adminId')
-  async setUserRoleAdminUsername(@Param('id') id: string, @Param('adminId') adminId: string) {
-    return this.bookService.approveBook(id, adminId);
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Patch('id/:id/:adminId')
+  async setUserRoleAdminUsername(@Param('id', ParseIntPipe) id: number) {
+    return this.bookService.approveBook(id, 0);
   }
 
   @ApiOperation({
@@ -115,7 +188,15 @@ export class BookController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/bybookname/:bookname')
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('name/:bookname')
   async deleteBookByBookname(@Param('bookname') bookname: string) {
     return this.bookService.deleteBookByBookname(bookname);
   }
@@ -123,7 +204,7 @@ export class BookController {
   @ApiOperation({
     summary: 'Delete the book with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The book was successfully deleted',
@@ -132,8 +213,16 @@ export class BookController {
     status: 403,
     description: 'Forbidden.',
   })
-  @Delete('/byid/:id')
-  async deleteBookById(@Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Delete('id/:id')
+  async deleteBookById(@Param('id', ParseIntPipe) id: number) {
     return this.bookService.deleteBookById(id);
   }
 }
