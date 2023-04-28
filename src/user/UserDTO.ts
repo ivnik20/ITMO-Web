@@ -1,10 +1,11 @@
 import { Role } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class UserDTO {
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   id: number;
 
   @ApiProperty()

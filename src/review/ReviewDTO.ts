@@ -1,13 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class ReviewDTO {
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   id: number;
 
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   rating: number;
 
   @ApiProperty()
@@ -20,9 +22,13 @@ export class ReviewDTO {
 
   @ApiProperty()
   @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   bookId: number;
 
   @ApiProperty()
   @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   userId: number;
 }

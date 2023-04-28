@@ -1,9 +1,10 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CommentDTO {
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
   id: number;
 
   @ApiProperty()
@@ -12,10 +13,16 @@ export class CommentDTO {
   published: boolean | null;
 
   @ApiProperty()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
   authorId: number | null;
 
   @ApiProperty()
+  @IsNotEmpty()
   categoryTitle: string;
+
   @ApiProperty()
+  @IsNotEmpty()
   date: Date;
 }
