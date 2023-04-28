@@ -35,7 +35,7 @@ export class UserService {
     return user;
   }
 
-  public findUserId(id: string) {
+  public findUserId(id: number) {
     const num = Number(id);
     return prisma.user.findUnique({
       where: {
@@ -56,7 +56,7 @@ export class UserService {
     });
   }
 
-  async setAdminRoleId(id: string) {
+  async setAdminRoleId(id: number) {
     const num = Number(id);
     const user = await prisma.user.update({
       where: {
@@ -80,7 +80,7 @@ export class UserService {
     });
   }
 
-  async setClientRoleId(id: string) {
+  async setClientRoleId(id: number) {
     const num = Number(id);
     const user = await prisma.user.update({
       where: {

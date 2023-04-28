@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -73,7 +74,7 @@ export class UserController {
   @ApiOperation({
     summary: 'Get user by id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The user was successfully provided',
@@ -92,7 +93,7 @@ export class UserController {
     description: 'Not Found.',
   })
   @Get('/id/:id')
-  async getUserById(@Param('id') id: string): Promise<UserModel> {
+  async getUserById(@Param('id', ParseIntPipe) id: number): Promise<UserModel> {
     return this.userService.findUserId(id);
   }
 
@@ -124,7 +125,7 @@ export class UserController {
   @ApiOperation({
     summary: 'Assign admin role to user with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The role was successfully assigned',
@@ -142,7 +143,7 @@ export class UserController {
     description: 'Not Found.',
   })
   @Patch('/id_role/:id')
-  async setUserRoleAdminId(@Param('id') id: string) {
+  async setUserRoleAdminId(@Param('id', ParseIntPipe) id: number) {
     return this.userService.setAdminRoleId(id);
   }
 
@@ -174,7 +175,7 @@ export class UserController {
   @ApiOperation({
     summary: 'Assign client role to user with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The role was successfully assigned',
@@ -192,7 +193,7 @@ export class UserController {
     description: 'Not Found.',
   })
   @Patch('/id/:id')
-  async setUserRoleClientId(@Param('id') id: string) {
+  async setUserRoleClientId(@Param('id', ParseIntPipe) id: number) {
     return this.userService.setClientRoleId(id);
   }
 
@@ -224,7 +225,7 @@ export class UserController {
   @ApiOperation({
     summary: 'Delete the user with provided id',
   })
-  @ApiParam({ name: 'id', type: 'string' })
+  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
     description: 'The user was successfully deleted',
@@ -242,7 +243,7 @@ export class UserController {
     description: 'Not Found.',
   })
   @Delete('/id/:id')
-  async deleteUserById(@Param('id') id: string) {
+  async deleteUserById(@Param('id', ParseIntPipe) id: number) {
     return this.userService.deleteUserById(id);
   }
 }
