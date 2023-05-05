@@ -2,15 +2,7 @@
 <link href="/styles/form.css" rel="stylesheet">
 <script>
     function saveReview(id) {
-        console.log(
-                JSON.stringify({
-                    rating: Number(document.getElementById('rating').value),
-                    review: document.getElementById('review').value,
-                    date: new Date(),
-                    bookId: id,
-                    userId: 0,
-                })
-        );
+
         fetch('https://ivnik20-web.onrender.com/reviews', {
             method: 'POST',
             body: JSON.stringify({
@@ -25,7 +17,13 @@
                 'accept': 'application/json',
             },
         })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (response.ok){
+                        return response.json();}
+                    else{
+                        alert('Error! Check your input');
+                    }
+                })
                 .then((json) => console.log(json));
     }
 </script>

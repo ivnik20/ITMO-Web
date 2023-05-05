@@ -26,7 +26,13 @@
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (response.ok){
+                        return response.json();}
+                    else{
+                        alert('Error! Check your input');
+                    }
+                })
                 .then((json) => console.log(json));
     }
 </script>

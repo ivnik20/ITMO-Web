@@ -5,6 +5,8 @@ import { join } from 'path';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './exception.filter';
+import supertokens from 'supertokens-node';
+import { SupertokensExceptionFilter } from './auth/auth.filter';
 
 async function bootstrap() {
   const express = await require('express');
@@ -14,7 +16,14 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
   app.set('view options', { layout: 'layouts/layout' });
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.use(express.static('public'));
+  app.use(express.static(join(__dirname, '..', 'public')));
+
+  app.enableCors({
+    origin: [process.env.URL],
+    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    credentials: true,
+  });
+  app.useGlobalFilters(new SupertokensExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('Nabokovian')

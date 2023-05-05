@@ -3,11 +3,15 @@ import {
   Get,
   Param,
   Render,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { LoggingInterceptor } from './logging.interceptor';
 import { ApiExcludeController } from '@nestjs/swagger';
 import { AppService } from './app.service';
+import { AuthGuard } from './auth/auth.guard';
+import { Session } from './auth/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiExcludeController()
 @Controller()
@@ -55,5 +59,12 @@ export class AppController {
   @Render('reviewslist')
   reviews(@Param('id') id: number) {
     return this.appService.showBookReviews(id);
+  }
+
+  @Get('test')
+  @UseGuards(new AuthGuard())
+  async getTest(@Session() session: SessionContainer): Promise<string> {
+    // TODO: magic
+    return 'magic';
   }
 }
