@@ -151,6 +151,31 @@ export class BookController {
   }
 
   @ApiOperation({
+    summary: 'Get all not approved books',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Books were successfully provided',
+    type: BookModel,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Not Found.',
+  })
+  @Get('/books/noapprove')
+  async getNotApproved(): Promise<BookModel[]> {
+    return this.bookService.notApproved();
+  }
+
+  @ApiOperation({
     summary: 'Approve and publish suggested book by id',
   })
   @ApiParam({ name: 'id', type: 'number' })
@@ -172,7 +197,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Patch('id/:id/:adminId')
-  async setUserRoleAdminUsername(@Param('id', ParseIntPipe) id: number) {
+  async setBookApproved(@Param('id', ParseIntPipe) id: number) {
     return this.bookService.approveBook(id, 0);
   }
 

@@ -94,7 +94,7 @@ export class ReviewController {
   })
   @Get('/bookId/:bookId')
   async getReviewsByBook(
-    @Param('bookId') bookId: number,
+    @Param('bookId', ParseIntPipe) bookId: number,
   ): Promise<ReviewModel[]> {
     return this.reviewService.findReviewsForBook(bookId);
   }

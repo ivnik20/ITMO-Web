@@ -8,7 +8,6 @@ export default prisma;
 @Injectable()
 export class CommentService {
   public createComment(body: CommentModel) {
-    const id = body.id;
     const date = body.date;
     const categoryTitle = body.categoryTitle;
     const authorId = body.authorId;
@@ -16,7 +15,6 @@ export class CommentService {
     try {
       const commentObj = prisma.comment.create({
         data: {
-          id,
           content,
           date,
           categoryTitle,

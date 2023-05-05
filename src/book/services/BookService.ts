@@ -1,6 +1,5 @@
 import { Category, Period, PrismaClient } from '@prisma/client';
 import { Injectable, NotImplementedException } from '@nestjs/common';
-import { User, Prisma } from '@prisma/client';
 import { BookDTO as BookModel } from '../BookDTO';
 
 const prisma = new PrismaClient();
@@ -9,18 +8,16 @@ export default prisma;
 @Injectable()
 export class BookService {
   public createBook(body: BookModel) {
-    const id = body.id;
     const title = body.title;
     const bookAuthor = body.bookAuthor;
     const authorId = body.authorId;
     const comment = body.comment;
-    const approved = false;
+    const approved = body.approved;
     const categoryTitle = body.categoryTitle;
     const adminId = body.adminId;
     try {
       const book = prisma.book.create({
         data: {
-          id,
           title,
           bookAuthor,
           authorId,
@@ -87,6 +84,13 @@ export class BookService {
     return prisma.book.findMany({
       where: {
         approved: true,
+      },
+    });
+  }
+  async notApproved() {
+    return prisma.book.findMany({
+      where: {
+        approved: false,
       },
     });
   }

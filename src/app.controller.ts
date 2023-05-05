@@ -1,11 +1,20 @@
-import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Render,
+  UseInterceptors,
+} from '@nestjs/common';
 import { LoggingInterceptor } from './logging.interceptor';
 import { ApiExcludeController } from '@nestjs/swagger';
+import { AppService } from './app.service';
 
 @ApiExcludeController()
 @Controller()
 @UseInterceptors(LoggingInterceptor)
 export class AppController {
+  constructor(private readonly appService: AppService) {}
+
   @Get()
   @Render('index')
   root() {
@@ -34,5 +43,17 @@ export class AppController {
   @Render('gallery')
   gallery() {
     return { layout: 'layouts/gallery_layout' };
+  }
+
+  @Get('/approvelist')
+  @Render('approvelist')
+  approve() {
+    return {};
+  }
+
+  @Get('/bookreviews/:id')
+  @Render('reviewslist')
+  reviews(@Param('id') id: number) {
+    return this.appService.showBookReviews(id);
   }
 }

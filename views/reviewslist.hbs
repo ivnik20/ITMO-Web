@@ -1,0 +1,53 @@
+<script src="/scripts/parseReviews.js"></script>
+<link href="/styles/form.css" rel="stylesheet">
+<script>
+    function saveReview(id) {
+        console.log(
+                JSON.stringify({
+                    rating: Number(document.getElementById('rating').value),
+                    review: document.getElementById('review').value,
+                    date: new Date(),
+                    bookId: id,
+                    userId: 0,
+                })
+        );
+        fetch('https://ivnik20-web.onrender.com/reviews', {
+            method: 'POST',
+            body: JSON.stringify({
+                rating: Number(document.getElementById('rating').value),
+                review: document.getElementById('review').value,
+                date: new Date(),
+                bookId: id,
+                userId: 0,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'accept': 'application/json',
+            },
+        })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+    }
+</script>
+<section>
+    <article class="content_article">
+        <h2 class = content_h2>Отзывы к {{{title}}}</h2>
+        <table id = "table" class = "table">
+            <thead>
+            <tr class="tr tr-header">
+                <th>Имя пользователя</th>
+                <th>Рейтинг</th>
+                <th>Отзыв</th>
+            </tr>
+            </thead>
+        </table>
+    </article>
+</section>
+<form>
+    <input type="number" id="rating" min="0" max="10" placeholder="Оценка">
+    <textarea rows="2" class="type-1 book_form" id="review" placeholder="Отзыв" required autocomplete="off"></textarea>
+</form>
+<button class = "button" id="submit" onclick="saveReview({{{id}}})"> Отправить </button>
+<article class="content_article"><h2 id = "empty_message" class = content_h2>К сожалению, отзывов пока нет!</h2></article>
+<img id = "preloader" class="picture" src="/Images/loading.gif">
+<script>get({{{id}}})</script>

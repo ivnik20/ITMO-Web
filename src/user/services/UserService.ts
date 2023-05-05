@@ -10,13 +10,11 @@ export class UserService {
   public createUser(body: UserModel) {
     const email = body.email;
     const name = body.name;
-    const id = body.id;
     try {
       const user = prisma.user.create({
         data: {
           email,
           name,
-          id,
         },
       });
       return user;

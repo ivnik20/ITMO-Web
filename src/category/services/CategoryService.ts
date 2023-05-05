@@ -15,8 +15,6 @@ export class CategoryService {
         data: {
           title,
           period,
-          //book,
-          //user,
         },
       });
       return category;

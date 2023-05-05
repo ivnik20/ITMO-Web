@@ -1,0 +1,59 @@
+<link href="styles/form.css" rel="stylesheet">
+<script>
+    function saveBook() {
+        console.log(JSON.stringify({
+            title: document.getElementById('book').value,
+            authorId: 0,
+            bookAuthor: document.getElementById('author').value,
+            published: true,
+            comment: document.getElementById('comment').value,
+            categoryTitle: document.getElementById('categories').value.split(' ')[0],
+            adminId: 0,
+        }));
+        fetch('https://ivnik20-web.onrender.com/books', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: document.getElementById('book').value,
+                authorId: 0,
+                bookAuthor: document.getElementById('author').value,
+                published: true,
+                comment: document.getElementById('comment').value,
+                categoryTitle: document.getElementById('categories').value.split(' ')[0],
+                adminId: 0,
+                approved: true,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+    }
+</script>
+
+<h2 class="content_h2">Предложить книгу для добавления:</h2>
+<form>
+    <input type="text" class="type-1 book_form" id="author" placeholder="Автор" required autocomplete="off"/>
+    <select id="categories">
+        <option selected="selected">Выберите категорию</option>
+    </select>
+    <input type="text" class="type-1 book_form" id="book" placeholder="Название книги" required autocomplete="off"/>
+    <textarea name="description" rows="2" class="type-1 book_form" id="comment" placeholder="Комментарий" required autocomplete="off"></textarea>
+</form>
+<button class = "button" id="submit" onclick="saveBook()"> Отправить </button>
+<article class="content_article">
+<table id="table" class="table">
+    <thead>
+    <tr class="tr-header tr">
+        <th>Автор</th>
+        <th>Категория</th>
+        <th>Название</th>
+        <th>Комментарий</th>
+        <th>Предложил</th>
+    </tr>
+    </thead>
+</table>
+</article>
+<img id = "preloader" class="picture" src="Images/loading.gif">
+<script src="scripts/getUnapproved.js"></script>
+<script src="scripts/getCategories.js"></script>

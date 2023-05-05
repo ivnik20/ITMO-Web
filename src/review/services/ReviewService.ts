@@ -8,7 +8,6 @@ export default prisma;
 @Injectable()
 export class ReviewService {
   public createReview(body: ReviewModel) {
-    const id = body.id;
     const rating = body.rating;
     const review = body.review;
     const date = body.date;
@@ -17,7 +16,6 @@ export class ReviewService {
     try {
       const reviewObj = prisma.review.create({
         data: {
-          id,
           rating,
           review,
           date,

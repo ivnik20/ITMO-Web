@@ -4,10 +4,6 @@ import { IsEmail, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class UserDTO {
   @ApiProperty()
-  @IsNumber()
-  id: number;
-
-  @ApiProperty()
   @IsEmail()
   email: string;
 

@@ -3,10 +3,6 @@ import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class BookDTO {
   @ApiProperty()
-  @IsNumber()
-  id: number;
-
-  @ApiProperty()
   @IsNotEmpty()
   title: string;
 
