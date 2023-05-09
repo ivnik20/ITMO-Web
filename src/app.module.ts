@@ -9,6 +9,7 @@ import { CategoryModule } from './category/CategoryModule';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './exception.filter';
 import { AuthModule } from './auth/auth.module';
+import { UserService } from './user/services/UserService';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
   ],
   controllers: [AppController],
   providers: [
+    UserService,
     AppService,
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
   ],

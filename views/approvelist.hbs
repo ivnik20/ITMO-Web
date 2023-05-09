@@ -14,13 +14,13 @@
             method: 'POST',
             body: JSON.stringify({
                 title: document.getElementById('book').value,
-                authorId: 0,
+                authorId: {{user.id}},
                 bookAuthor: document.getElementById('author').value,
                 published: true,
                 comment: document.getElementById('comment').value,
                 categoryTitle: document.getElementById('categories').value.split(' ')[0],
                 adminId: 0,
-                approved: true,
+                approved: false,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

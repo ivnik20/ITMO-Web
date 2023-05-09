@@ -7,6 +7,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './exception.filter';
 import supertokens from 'supertokens-node';
 import { SupertokensExceptionFilter } from './auth/auth.filter';
+import { AuthInterceptor } from './auth.interceptor';
+import { UserService } from './user/services/UserService';
+import { LoggingInterceptor } from './logging.interceptor';
 
 async function bootstrap() {
   const express = await require('express');
@@ -17,11 +20,14 @@ async function bootstrap() {
   app.set('view options', { layout: 'layouts/layout' });
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.use(express.static(join(__dirname, '..', 'public')));
+  app.useGlobalInterceptors(
+    new AuthInterceptor(app.get(UserService)),
+    new LoggingInterceptor(),
+  );
 
   app.enableCors({
     origin: [process.env.URL],
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
     credentials: true,
   });
   app.useGlobalFilters(new SupertokensExceptionFilter());

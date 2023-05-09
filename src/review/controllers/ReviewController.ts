@@ -8,10 +8,12 @@ import {
   Patch,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ReviewService } from '../services/ReviewService';
 import { ReviewDTO as ReviewModel } from '../ReviewDTO';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../../auth/auth.guard';
 
 @ApiTags('Review')
 @Controller('/reviews')
@@ -39,6 +41,7 @@ export class ReviewController {
     description: 'Not Found.',
   })
   @Post('')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async create(@Body() body: ReviewModel): Promise<ReviewModel> {
     return this.reviewService.createReview(body);
   }
@@ -65,6 +68,7 @@ export class ReviewController {
     description: 'Not Found.',
   })
   @Get('/id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getReviewById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<ReviewModel> {
@@ -93,6 +97,7 @@ export class ReviewController {
     description: 'Not Found.',
   })
   @Get('/bookId/:bookId')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getReviewsByBook(
     @Param('bookId', ParseIntPipe) bookId: number,
   ): Promise<ReviewModel[]> {
@@ -120,6 +125,7 @@ export class ReviewController {
     description: 'Not Found.',
   })
   @Delete('/id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteReviewById(@Param('id', ParseIntPipe) id: number) {
     return this.reviewService.deleteReviewById(id);
   }

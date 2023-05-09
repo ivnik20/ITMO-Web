@@ -13,7 +13,7 @@ export class UserDTO {
 
   @ApiProperty()
   @IsNotEmpty()
-  password: string;
+  supertoken: string;
 
   role: Role;
 }

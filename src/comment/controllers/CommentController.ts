@@ -7,11 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Req,
+  Req, UseGuards,
 } from '@nestjs/common';
 import { CommentService } from '../../comment/services/CommentService';
 import { CommentDTO as CommentModel } from '../CommentDTO';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {AuthGuard} from "../../auth/auth.guard";
 
 @ApiTags('Comment')
 @Controller('/comments')
@@ -39,6 +40,7 @@ export class CommentController {
     description: 'Not Found.',
   })
   @Post('')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async create(@Body() body: CommentModel): Promise<CommentModel> {
     return this.commentService.createComment(body);
   }
@@ -65,6 +67,7 @@ export class CommentController {
     description: 'Not Found.',
   })
   @Get('/id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getCommentById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<CommentModel> {
@@ -93,6 +96,7 @@ export class CommentController {
     description: 'Not Found.',
   })
   @Get('/title/:title')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getPublishedComments(
     @Param('title') title: string,
   ): Promise<CommentModel[]> {
@@ -120,6 +124,7 @@ export class CommentController {
     description: 'Not Found.',
   })
   @Patch('/id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async publishComment(@Param('id', ParseIntPipe) id: number) {
     return this.commentService.publishComment(id);
   }
@@ -145,6 +150,7 @@ export class CommentController {
     description: 'Not Found.',
   })
   @Delete('/id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteCommentById(@Param('id', ParseIntPipe) id: number) {
     return this.commentService.deleteCommentById(id);
   }

@@ -8,11 +8,13 @@ import {
   Patch,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { BookService } from '../services/BookService';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookDTO as BookModel } from '../BookDTO';
 import { Period } from '@prisma/client';
+import { AuthGuard } from '../../auth/auth.guard';
 
 @ApiTags('Book')
 @Controller('/books')
@@ -40,6 +42,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Post('')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async create(@Body() body: BookModel): Promise<BookModel> {
     return this.bookService.createBook(body);
   }
@@ -66,6 +69,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Get('name/:bookname')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getBookByBookname(
     @Param('bookname') bookname: string,
   ): Promise<BookModel> {
@@ -93,6 +97,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Get('period/:period')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getBooksByPeriod(
     @Param('period') period: Period,
   ): Promise<BookModel[]> {
@@ -121,6 +126,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Get('id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getBookById(@Param('id', ParseIntPipe) id: number): Promise<BookModel> {
     return this.bookService.findBookId(id);
   }
@@ -146,6 +152,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Get('/books/all')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getApproved(): Promise<BookModel[]> {
     return this.bookService.approved();
   }
@@ -171,6 +178,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Get('/books/noapprove')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getNotApproved(): Promise<BookModel[]> {
     return this.bookService.notApproved();
   }
@@ -197,8 +205,12 @@ export class BookController {
     description: 'Not Found.',
   })
   @Patch('id/:id/:adminId')
-  async setBookApproved(@Param('id', ParseIntPipe) id: number) {
-    return this.bookService.approveBook(id, 0);
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
+  async setBookApproved(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('adminId', ParseIntPipe) adminId: number,
+  ) {
+    return this.bookService.approveBook(id, adminId);
   }
 
   @ApiOperation({
@@ -222,6 +234,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Delete('name/:bookname')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteBookByBookname(@Param('bookname') bookname: string) {
     return this.bookService.deleteBookByBookname(bookname);
   }
@@ -247,6 +260,7 @@ export class BookController {
     description: 'Not Found.',
   })
   @Delete('id/:id')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteBookById(@Param('id', ParseIntPipe) id: number) {
     return this.bookService.deleteBookById(id);
   }

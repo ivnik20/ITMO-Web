@@ -7,16 +7,17 @@ export default prisma;
 
 @Injectable()
 export class UserService {
-  public createUser(body: UserModel) {
+  public createUser(body: { supertoken: string; name: string; email: string }) {
     const email = body.email;
     const name = body.name;
-    const password = body.password;
+    const supertoken = body.supertoken;
     try {
       const user = prisma.user.create({
         data: {
           email,
           name,
-          password,
+          supertoken,
+          role: 'ADMIN',
         },
       });
       return user;
@@ -105,6 +106,14 @@ export class UserService {
     const user = await prisma.user.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async getUserIdBySupertokensId(id) {
+    return prisma.user.findUnique({
+      where: {
+        supertoken: id,
       },
     });
   }

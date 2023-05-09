@@ -1,28 +1,29 @@
 <script>
-    function redir(){
-        window.location = this.action;
+    async function logout () {
+        await supertokensSession.signOut();
+        window.location.href = "/";
     }
 </script>
 <div class = "menu">
     <h1 style="text-align: center">
-    {{#if loggedIn}}
-        <form>
-            <p class ="content_p">Добро пожаловать, {{{user}}}!
-                <a class ="content_a">Выйти</a>
+        {{#if logged}}
+        <span id="greetings_form">
+            <p class ="content_p">Добро пожаловать, {{loggedUser.name}}!
+                <button class = "button" id="out" onclick="logout()"> Выйти </button>
             </p>
-        </form>
-    {{else}}
-        <form id="login_form">
+        </span>
+        {{else}}
+        <span id="login_form">
             <input type="text" class="type-1" id="l_username" placeholder="Логин" required autocomplete="off"/>
             <input type="text" class="type-1" id="l_password" placeholder="Пароль" required autocomplete="off"/>
-            <button class = "button" id="login" onclick="redir();signInClicked();"> Войти </button>
-        </form>
-        <form id="signup_form">
+            <button class = "button" id="login" onclick="signInClicked()"> Войти </button>
+        </span>
+        <span id="signup_form">
             <input type="text" class="type-1" id="s_username" placeholder="Логин" required autocomplete="off"/>
             <input type="text" class="type-1" id="s_password" placeholder="Пароль" required autocomplete="off"/>
-            <button class = "button" id="login" onclick="redir();signUpClicked();"> Зарегистрироваться </button>
-        </form>
-    {{/if}}
+            <button class = "button" id="login" onclick="signUpClicked()"> Зарегистрироваться </button>
+        </span>
+        {{/if}}
     </h1>
     <nav>
         <ul class = "menu_list">
@@ -30,6 +31,9 @@
             <li class="menu_li"><a href="/american" class = "menu_a">Американский период</a></li>
             <li class="menu_li"><a href="/comments" class = "menu_a">Комментарии</a></li>
             <li class="menu_li"><a href="/approvelist" class = "menu_a">Предложить книгу</a></li>
+            {{#if logged}}
+            <li class="menu_li"><a href="/admin" class = "menu_a">Администрирование</a></li>
+            {{/if}}
         </ul>
     </nav>
 </div>

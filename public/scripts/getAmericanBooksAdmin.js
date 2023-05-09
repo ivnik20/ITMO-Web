@@ -28,7 +28,8 @@ async function updateTable(promise) {
       '</td> <td>' +
       element.comment +
       '</td> <td>' +
-      name;
+      name +
+      "</td> <td><button class = 'button' id='submit' onclick='approveBook({{user.id}}, element.id)'> Одобрить </button> </td>";
   }
   loadingGif.style.display = 'none';
   tableArea.style.display = 'block';

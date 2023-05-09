@@ -9,9 +9,10 @@ import { AuthMiddleware } from './auth.middleware';
 import { ConfigInjectionToken, AuthModuleConfig } from './config.interface';
 import { SupertokensService } from './supertokens/supertokens.service';
 import { AppController } from '../app.controller';
+import { UserService } from 'src/user/services/UserService';
 
 @Module({
-  providers: [SupertokensService],
+  providers: [UserService, SupertokensService],
   exports: [],
   controllers: [],
 })

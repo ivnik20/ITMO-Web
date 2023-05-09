@@ -6,26 +6,26 @@ async function signInClicked() {
       formFields: [
         {
           id: 'email',
-          value: email.toString(),
+          value: email,
         },
         {
           id: 'password',
-          value: password.toString(),
+          value: password,
         },
       ],
     });
+
     if (response.status === 'FIELD_ERROR') {
       response.formFields.forEach((formField) => {
         if (formField.id === 'email') {
-          // Email validation failed (for example incorrect email syntax).
           window.alert(formField.error);
         }
       });
     } else if (response.status === 'WRONG_CREDENTIALS_ERROR') {
       window.alert('Email password combination is incorrect.');
     } else {
-      // sign in successful. The session tokens are automatically handled by
-      // the frontend SDK.
+      window.alert('Logged in successfully');
+      window.location.reload();
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {
@@ -35,12 +35,5 @@ async function signInClicked() {
       window.alert('Oops! Something went wrong.');
     }
   }
-  getToken();
-  console.log('OK');
-  return { loggedIn: true, user: 'Nikita' };
-}
-
-async function getToken() {
-  const accessToken = await supertokensSession.getAccessToken();
-  console.log(accessToken);
+  return {};
 }

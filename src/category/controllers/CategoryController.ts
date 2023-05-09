@@ -6,13 +6,14 @@ import {
   Param,
   Patch,
   Post,
-  Req,
+  Req, UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from '../services/CategoryService';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CategoryDTO as CategoryModel } from '../CategoryDTO';
 import { BookDTO as BookModel } from 'src/book/BookDTO';
 import { Period } from '@prisma/client';
+import {AuthGuard} from "../../auth/auth.guard";
 
 @ApiTags('Category')
 @Controller('/categories')
@@ -40,6 +41,7 @@ export class CategoryController {
     description: 'Not Found.',
   })
   @Post('')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async create(@Body() body: CategoryModel): Promise<CategoryModel> {
     return this.categoryService.createCategory(body);
   }
@@ -66,6 +68,7 @@ export class CategoryController {
     description: 'Not Found.',
   })
   @Get('/title/:title')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getCategoryByTitle(
     @Param('title') title: string,
   ): Promise<CategoryModel> {
@@ -94,6 +97,7 @@ export class CategoryController {
     description: 'Not Found.',
   })
   @Get('/period/:period')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async getCategories(
     @Param('period') period: Period,
   ): Promise<CategoryModel[]> {
@@ -121,6 +125,7 @@ export class CategoryController {
     description: 'Not Found.',
   })
   @Delete('/title/:title')
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteCategoryByTitle(@Param('title') title: string) {
     return this.categoryService.deleteCategoryByTitle(title);
   }
