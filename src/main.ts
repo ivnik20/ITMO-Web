@@ -31,11 +31,11 @@ async function bootstrap() {
     credentials: true,
   });
   app.useGlobalFilters(new SupertokensExceptionFilter());
-
   const config = new DocumentBuilder()
     .setTitle('Nabokovian')
     .setDescription('Nabokovian API description')
     .setVersion('1.0')
+    .addCookieAuth('sAccessToken', { type: 'apiKey' }, 'JWT')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

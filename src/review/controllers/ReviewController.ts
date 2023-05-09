@@ -98,10 +98,8 @@ export class ReviewController {
   })
   @Get('/bookId/:bookId')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getReviewsByBook(
-    @Param('bookId', ParseIntPipe) bookId: number,
-  ): Promise<ReviewModel[]> {
-    return this.reviewService.findReviewsForBook(bookId);
+  async getReviewsByBook(@Param('bookId', ParseIntPipe) bookId: number) {
+    return { reviews: this.reviewService.findReviewsForBook(bookId) };
   }
 
   @ApiOperation({

@@ -16,7 +16,8 @@ async function updateTable(promise) {
   let tableArea = document.getElementById('table');
   let loadingGif = document.getElementById('preloader');
   const data = await promise;
-  for (const element of data) {
+  console.log(data);
+  for (const element of data.books) {
     const name = await getUserName(element.authorId);
     tableArea.innerHTML +=
       "<tr class='tr-odd tr'> <td>" +

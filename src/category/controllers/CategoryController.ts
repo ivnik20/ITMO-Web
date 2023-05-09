@@ -6,14 +6,21 @@ import {
   Param,
   Patch,
   Post,
-  Req, UseGuards,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from '../services/CategoryService';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CategoryDTO as CategoryModel } from '../CategoryDTO';
 import { BookDTO as BookModel } from 'src/book/BookDTO';
 import { Period } from '@prisma/client';
-import {AuthGuard} from "../../auth/auth.guard";
+import { AuthGuard } from '../../auth/auth.guard';
 
 @ApiTags('Category')
 @Controller('/categories')
@@ -98,10 +105,8 @@ export class CategoryController {
   })
   @Get('/period/:period')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getCategories(
-    @Param('period') period: Period,
-  ): Promise<CategoryModel[]> {
-    return this.categoryService.forPeriod(period);
+  async getCategories(@Param('period') period: Period) {
+    return { categories: await this.categoryService.forPeriod(period) };
   }
 
   @ApiOperation({
@@ -125,6 +130,7 @@ export class CategoryController {
     description: 'Not Found.',
   })
   @Delete('/title/:title')
+  @ApiCookieAuth('JWT')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
   async deleteCategoryByTitle(@Param('title') title: string) {
     return this.categoryService.deleteCategoryByTitle(title);

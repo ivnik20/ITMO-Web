@@ -7,12 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Req, UseGuards,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CommentService } from '../../comment/services/CommentService';
 import { CommentDTO as CommentModel } from '../CommentDTO';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import {AuthGuard} from "../../auth/auth.guard";
+import { AuthGuard } from '../../auth/auth.guard';
 
 @ApiTags('Comment')
 @Controller('/comments')
@@ -97,10 +98,8 @@ export class CommentController {
   })
   @Get('/title/:title')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getPublishedComments(
-    @Param('title') title: string,
-  ): Promise<CommentModel[]> {
-    return this.commentService.publishedForCategory(title);
+  async getPublishedComments(@Param('title') title: string) {
+    return { comments: this.commentService.publishedForCategory(title) };
   }
 
   @ApiOperation({

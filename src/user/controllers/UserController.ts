@@ -13,7 +13,13 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../services/UserService';
 import { UserDTO as UserModel } from '../UserDTO';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthInterceptor } from '../../auth.interceptor';
 import { AuthGuard } from '../../auth/auth.guard';
 
@@ -125,6 +131,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Patch('/name_role/:username')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async setUserRoleAdminUsername(@Param('username') username: string) {
@@ -151,6 +158,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Patch('/id_role/:id')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async setUserRoleAdminId(@Param('id', ParseIntPipe) id: number) {
@@ -177,6 +185,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Patch('/name/:username')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async setUserRoleClientUsername(@Param('username') username: string) {
@@ -203,6 +212,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Patch('/id/:id')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async setUserRoleClientId(@Param('id', ParseIntPipe) id: number) {
@@ -229,6 +239,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Delete('/name/:username')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async deleteUserByUsername(@Param('username') username: string) {
@@ -255,6 +266,7 @@ export class UserController {
     status: 404,
     description: 'Not Found.',
   })
+  @ApiCookieAuth('JWT')
   @Delete('/id/:id')
   @UseGuards(new AuthGuard({ sessionRequired: true }))
   async deleteUserById(@Param('id', ParseIntPipe) id: number) {

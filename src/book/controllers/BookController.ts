@@ -11,7 +11,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { BookService } from '../services/BookService';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BookDTO as BookModel } from '../BookDTO';
 import { Period } from '@prisma/client';
 import { AuthGuard } from '../../auth/auth.guard';
@@ -98,10 +104,8 @@ export class BookController {
   })
   @Get('period/:period')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getBooksByPeriod(
-    @Param('period') period: Period,
-  ): Promise<BookModel[]> {
-    return this.bookService.forPeriod(period);
+  async getBooksByPeriod(@Param('period') period: Period) {
+    return { books: await this.bookService.forPeriod(period) };
   }
 
   @ApiOperation({
@@ -153,8 +157,8 @@ export class BookController {
   })
   @Get('/books/all')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getApproved(): Promise<BookModel[]> {
-    return this.bookService.approved();
+  async getApproved() {
+    return { books: this.bookService.approved() };
   }
 
   @ApiOperation({
@@ -179,8 +183,8 @@ export class BookController {
   })
   @Get('/books/noapprove')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getNotApproved(): Promise<BookModel[]> {
-    return this.bookService.notApproved();
+  async getNotApproved() {
+    return { books: await this.bookService.notApproved() };
   }
 
   @ApiOperation({
@@ -206,6 +210,7 @@ export class BookController {
   })
   @Patch('id/:id/:adminId')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
+  @ApiCookieAuth('JWT')
   async setBookApproved(
     @Param('id', ParseIntPipe) id: number,
     @Param('adminId', ParseIntPipe) adminId: number,
@@ -235,6 +240,7 @@ export class BookController {
   })
   @Delete('name/:bookname')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
+  @ApiCookieAuth('JWT')
   async deleteBookByBookname(@Param('bookname') bookname: string) {
     return this.bookService.deleteBookByBookname(bookname);
   }
@@ -261,6 +267,7 @@ export class BookController {
   })
   @Delete('id/:id')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
+  @ApiCookieAuth('JWT')
   async deleteBookById(@Param('id', ParseIntPipe) id: number) {
     return this.bookService.deleteBookById(id);
   }
