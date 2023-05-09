@@ -6,15 +6,14 @@ async function signUpClicked() {
       formFields: [
         {
           id: 'email',
-          value: email,
+          value: email.toString(),
         },
         {
           id: 'password',
-          value: password,
+          value: password.toString(),
         },
       ],
     });
-
     if (response.status === 'FIELD_ERROR') {
       // one of the input formFields failed validaiton
       response.formFields.forEach((formField) => {
@@ -31,7 +30,7 @@ async function signUpClicked() {
     } else {
       // sign up successful. The session tokens are automatically handled by
       // the frontend SDK.
-      window.location.href = '/index';
+      window.location.reload();
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {
@@ -41,4 +40,12 @@ async function signUpClicked() {
       window.alert('Oops! Something went wrong.');
     }
   }
+  getToken();
+  console.log('OK');
+  return { loggedIn: true, user: 'Nikita' };
+}
+
+async function getToken() {
+  const accessToken = await supertokensSession.getAccessToken();
+  console.log(accessToken);
 }

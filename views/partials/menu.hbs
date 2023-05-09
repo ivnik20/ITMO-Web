@@ -1,6 +1,30 @@
+<script>
+    function redir(){
+        window.location = this.action;
+    }
+</script>
 <div class = "menu">
+    <h1 style="text-align: center">
+    {{#if loggedIn}}
+        <form>
+            <p class ="content_p">Добро пожаловать, {{{user}}}!
+                <a class ="content_a">Выйти</a>
+            </p>
+        </form>
+    {{else}}
+        <form id="login_form">
+            <input type="text" class="type-1" id="l_username" placeholder="Логин" required autocomplete="off"/>
+            <input type="text" class="type-1" id="l_password" placeholder="Пароль" required autocomplete="off"/>
+            <button class = "button" id="login" onclick="redir();signInClicked();"> Войти </button>
+        </form>
+        <form id="signup_form">
+            <input type="text" class="type-1" id="s_username" placeholder="Логин" required autocomplete="off"/>
+            <input type="text" class="type-1" id="s_password" placeholder="Пароль" required autocomplete="off"/>
+            <button class = "button" id="login" onclick="redir();signUpClicked();"> Зарегистрироваться </button>
+        </form>
+    {{/if}}
+    </h1>
     <nav>
-
         <ul class = "menu_list">
             <li class="menu_li"><a href="/russian" class = "menu_a">Русский период</a></li>
             <li class="menu_li"><a href="/american" class = "menu_a">Американский период</a></li>

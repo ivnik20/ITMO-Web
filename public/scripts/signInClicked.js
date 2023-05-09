@@ -2,19 +2,18 @@ async function signInClicked() {
   try {
     let email = document.getElementById('l_username').value.trim();
     let password = document.getElementById('l_password').value.trim();
-    let response = await signIn({
+    let response = await supertokensEmailPassword.signIn({
       formFields: [
         {
           id: 'email',
-          value: email,
+          value: email.toString(),
         },
         {
           id: 'password',
-          value: password,
+          value: password.toString(),
         },
       ],
     });
-
     if (response.status === 'FIELD_ERROR') {
       response.formFields.forEach((formField) => {
         if (formField.id === 'email') {
@@ -27,7 +26,6 @@ async function signInClicked() {
     } else {
       // sign in successful. The session tokens are automatically handled by
       // the frontend SDK.
-      window.location.href = '/homepage';
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {
@@ -37,4 +35,12 @@ async function signInClicked() {
       window.alert('Oops! Something went wrong.');
     }
   }
+  getToken();
+  console.log('OK');
+  return { loggedIn: true, user: 'Nikita' };
+}
+
+async function getToken() {
+  const accessToken = await supertokensSession.getAccessToken();
+  console.log(accessToken);
 }

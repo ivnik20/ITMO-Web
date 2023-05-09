@@ -4,5 +4,9 @@ supertokens.init({
     apiBasePath: '/api/auth',
     appName: 'Nabokovian',
   },
-  recipeList: [supertokensSession.init(), supertokensEmailPassword.init()],
+  recipeList: [
+    supertokensSession.init(),
+    supertokensEmailPassword.init(),
+    //Dashboard.init(),
+  ],
 });

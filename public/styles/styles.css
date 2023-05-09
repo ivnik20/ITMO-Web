@@ -37,13 +37,13 @@
     background-color: #3d88db;
 }
 .header {
-    height: 200px;
+    height: 100px;
 }
 .header_h1{
     font-size: 50px;
     text-align: center;
     position: relative;
-    top:-100px;
+    top:-150px;
 }
 .header_a{
     text-decoration: none;

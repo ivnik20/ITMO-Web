@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import supertokens from 'supertokens-node';
 import Session from 'supertokens-node/recipe/session';
 import EmailPassword from 'supertokens-node/recipe/emailpassword';
+import Dashboard from 'supertokens-node/recipe/dashboard';
 
 import { ConfigInjectionToken, AuthModuleConfig } from '../config.interface';
 
@@ -14,7 +15,7 @@ export class SupertokensService {
         connectionURI: config.connectionURI,
         apiKey: config.apiKey,
       },
-      recipeList: [EmailPassword.init(), Session.init()],
+      recipeList: [EmailPassword.init(), Session.init(), Dashboard.init()],
     });
   }
 }

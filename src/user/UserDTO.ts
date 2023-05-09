@@ -11,5 +11,9 @@ export class UserDTO {
   @IsNotEmpty()
   name: string | null;
 
+  @ApiProperty()
+  @IsNotEmpty()
+  password: string;
+
   role: Role;
 }

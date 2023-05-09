@@ -21,6 +21,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [process.env.URL],
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
     credentials: true,
   });
   app.useGlobalFilters(new SupertokensExceptionFilter());
@@ -33,7 +34,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  //app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

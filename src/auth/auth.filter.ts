@@ -21,10 +21,10 @@ export class SupertokensExceptionFilter implements ExceptionFilter {
     }
 
     this.handler(
-        exception,
-        ctx.getRequest<Request>(),
-        resp,
-        ctx.getNext<NextFunction>(),
+      exception,
+      ctx.getRequest<Request>(),
+      resp,
+      ctx.getNext<NextFunction>(),
     );
   }
 }

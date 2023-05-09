@@ -24,6 +24,11 @@ export class AppController {
   root() {
     return { loggedIn: false, user: 'Никита' };
   }
+  @Get()
+  @Render('/auth')
+  auth() {
+    return {};
+  }
 
   @Get('/american')
   @Render('american')

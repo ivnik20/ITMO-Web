@@ -13,6 +13,7 @@ datasource db {
 model User {
   id    Int     @default(autoincrement()) @id
   email String  @unique
+  password String @default("1234")
   name  String?
   suggested_books Book[] @relation ("suggested")
   approved_books Book[] @relation ("approved")
