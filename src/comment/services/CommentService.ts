@@ -12,6 +12,7 @@ export class CommentService {
     const categoryTitle = body.categoryTitle;
     const authorId = body.authorId;
     const content = body.content;
+    const published = true;
     try {
       const commentObj = prisma.comment.create({
         data: {
@@ -19,6 +20,7 @@ export class CommentService {
           date,
           categoryTitle,
           authorId,
+          published,
         },
       });
       return commentObj;
@@ -63,7 +65,7 @@ export class CommentService {
     });
   }
 
-  publishedForCategory(title: string) {
+  async publishedForCategory(title: string) {
     return prisma.comment.findMany({
       where: {
         published: true,

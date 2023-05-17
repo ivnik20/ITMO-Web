@@ -96,10 +96,10 @@ export class CommentController {
     status: 404,
     description: 'Not Found.',
   })
-  @Get('/title/:title')
+  @Get('/title')
   @UseGuards(new AuthGuard({ sessionRequired: false }))
-  async getPublishedComments(@Param('title') title: string) {
-    return { comments: this.commentService.publishedForCategory(title) };
+  async getPublishedComments() {
+    return { comments: await this.commentService.published() };
   }
 
   @ApiOperation({

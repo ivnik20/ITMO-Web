@@ -1,9 +1,9 @@
-(function () {
+(async function () {
   let tableArea = document.getElementById('table');
   let loadingGif = document.getElementById('preloader');
   tableArea.style.display = 'none';
   loadingGif.style.display = 'block';
-  const resp = fetch('https://ivnik20-web.onrender.com/books/period/RUSSIAN').then(
+  const resp = await fetch('https://ivnik20-web.onrender.com/books/period/RUSSIAN').then(
     (response) => response.json(),
   );
   for (const element of resp.books) {

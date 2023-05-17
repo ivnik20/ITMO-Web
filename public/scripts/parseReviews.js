@@ -1,4 +1,5 @@
 async function get(id) {
+  console.log(id);
   document.getElementById('table').style.display = 'none';
   const mes = document.getElementById('empty_message');
   const preload = document.getElementById('preloader');
@@ -10,7 +11,8 @@ async function get(id) {
   );
 
   const data = await res;
-  if (data.length === 0) {
+  console.log(data);
+  if (data.reviews.length == null) {
     mes.style.display = 'block';
     preload.style.display = 'none';
   } else {

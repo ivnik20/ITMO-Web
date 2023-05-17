@@ -12,9 +12,9 @@ export class BookService {
     const bookAuthor = body.bookAuthor;
     const authorId = body.authorId;
     const comment = body.comment;
-    const approved = body.approved;
+    const approved = false;
     const categoryTitle = body.categoryTitle;
-    const adminId = body.adminId;
+    const adminId = 1;
     try {
       const book = prisma.book.create({
         data: {

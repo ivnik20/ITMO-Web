@@ -1,6 +1,9 @@
 function approveBook(id, bookId) {
   fetch(
-    'https://ivnik20-web.onrender.com/books/' + bookId.toString() + '/' + id.toString(),
+    'https://ivnik20-web.onrender.com/books/id/' +
+      bookId.toString() +
+      '/' +
+      id.toString(),
     {
       method: 'PATCH',
       headers: {
@@ -16,4 +19,5 @@ function approveBook(id, bookId) {
       }
     })
     .then((json) => console.log(json));
+  document.location.reload();
 }

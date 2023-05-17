@@ -1,15 +1,20 @@
 <link href="styles/form.css" rel="stylesheet">
 
 <script>
-    function saveComment() {
+    function saveComment(id) {
+        console.log(JSON.stringify({
+            date: new Date(),
+            categoryTitle: document.getElementById('categories').value.split(' ')[0],
+            authorId: id,
+            content: document.getElementById('comment').value,
+        }));
             fetch('https://ivnik20-web.onrender.com/comments', {
                 method: 'POST',
                 body: JSON.stringify({
                     date: new Date(),
                     categoryTitle: document.getElementById('categories').value.split(' ')[0],
-                    authorId: 0,
+                    authorId: id,
                     content: document.getElementById('comment').value,
-                    published: false,
                 }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -23,7 +28,7 @@
                         }
                     })
                     .then((json) => console.log(json));
-
+        document.location.reload();
     }
 </script>
 
@@ -34,7 +39,7 @@
     </select>
     <textarea rows="2" class="type-1 book_form" id="comment" placeholder="Комментарий" required autocomplete="off"></textarea>
 </form>
-<button class = "button" id="submit" onclick="saveComment()"> Отправить </button>
+<button class = "button" id="submit" onclick="saveComment({{loggedUser.id}})"> Отправить </button>
 <article class="content_article">
 <table id="table" class="table">
     <thead>

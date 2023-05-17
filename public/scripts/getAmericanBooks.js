@@ -1,11 +1,12 @@
-(function () {
+(async function () {
   let tableArea = document.getElementById('table');
   let loadingGif = document.getElementById('preloader');
   tableArea.style.display = 'none';
   loadingGif.style.display = 'block';
-  const resp = fetch('https://ivnik20-web.onrender.com/books/period/AMERICAN').then(
+  const resp = await fetch('https://ivnik20-web.onrender.com/books/period/AMERICAN').then(
     (response) => response.json(),
   );
+  console.log(resp);
   for (const element of resp.books) {
     tableArea.innerHTML +=
       "<tr class='tr-odd tr'> <td> <a href = 'https://ivnik20-web.onrender.com/bookreviews/" +

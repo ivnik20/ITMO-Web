@@ -12,7 +12,6 @@
 async function updateSelect(promise) {
   let selectArea = document.getElementById('categories');
   const data = await promise;
-  console.log(data);
   for (const element of data.categories) {
     let per = ' (Американский период)';
     if (element.period === 'RUSSIAN') {

@@ -8,7 +8,7 @@ export class ReviewDTO {
 
   @ApiProperty()
   @IsNotEmpty()
-  review: string;
+  rev: string;
 
   @ApiProperty()
   @IsNotEmpty()

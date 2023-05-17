@@ -17,6 +17,7 @@ async function updateTable(promise) {
   let loadingGif = document.getElementById('preloader');
   const data = await promise;
   console.log(data);
+  let id = data.loggedUser.id;
   for (const element of data.books) {
     const name = await getUserName(element.authorId);
     tableArea.innerHTML +=
@@ -30,7 +31,9 @@ async function updateTable(promise) {
       element.comment +
       '</td> <td>' +
       name +
-      "</td> <td><button class = 'button' id='submit' onclick='approveBook({{user.id}}," +
+      "</td> <td><button class = 'button' id='submit' onclick='approveBook(" +
+      id +
+      ',' +
       element.id +
       ")'> Одобрить </button> </td>";
   }

@@ -9,7 +9,7 @@ export default prisma;
 export class ReviewService {
   public createReview(body: ReviewModel) {
     const rating = body.rating;
-    const review = body.review;
+    const review = body.rev;
     const date = body.date;
     const bookId = body.bookId;
     const userId = body.userId;
@@ -45,7 +45,7 @@ export class ReviewService {
     });
   }
 
-  findReviewsForBook(bookId: number) {
+  async findReviewsForBook(bookId: number) {
     return prisma.review.findMany({
       where: {
         bookId: bookId,

@@ -1,8 +1,8 @@
 (async function () {
   document.getElementById('table').style.display = 'none';
   document.getElementById('preloader').style.display = 'block';
-  const res = fetch('https://ivnik20-web.onrender.com/comments/title/lalala').then(
-    (response) => response.json(),
+  const res = fetch('https://ivnik20-web.onrender.com/comments/title').then((response) =>
+    response.json(),
   );
   await updateTable(res);
 })();
@@ -16,7 +16,8 @@ async function updateTable(promise) {
   let tableArea = document.getElementById('table');
   let loadingGif = document.getElementById('preloader');
   const data = await promise;
-  for (const element of data) {
+  console.log(data);
+  for (const element of data.comments) {
     const name = await getUserName(element.authorId);
     tableArea.innerHTML +=
       "<tr class='tr-odd tr'> <td>" +

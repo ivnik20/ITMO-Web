@@ -1,16 +1,22 @@
 <script src="/scripts/parseReviews.js"></script>
 <link href="/styles/form.css" rel="stylesheet">
 <script>
-    function saveReview(id) {
-
+    function saveReview(id, userId) {
+        console.log(JSON.stringify({
+            rating: Number(document.getElementById('rating').value),
+            review: document.getElementById('review').value,
+            date: new Date(),
+            bookId: id,
+            userId: userId,
+        }));
         fetch('https://ivnik20-web.onrender.com/reviews', {
             method: 'POST',
             body: JSON.stringify({
                 rating: Number(document.getElementById('rating').value),
-                review: document.getElementById('review').value,
+                rev: document.getElementById('review').value,
                 date: new Date(),
                 bookId: id,
-                userId: 0,
+                userId: userId,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -45,7 +51,7 @@
     <input type="number" id="rating" min="0" max="10" placeholder="Оценка">
     <textarea rows="2" class="type-1 book_form" id="review" placeholder="Отзыв" required autocomplete="off"></textarea>
 </form>
-<button class = "button" id="submit" onclick="saveReview({{{id}}})"> Отправить </button>
+<button class = "button" id="submit" onclick="saveReview({{id}}, {{loggedUser.id}})"> Отправить </button>
 <article class="content_article"><h2 id = "empty_message" class = content_h2>К сожалению, отзывов пока нет!</h2></article>
 <img id = "preloader" class="picture" src="/Images/loading.gif">
 <script>get({{{id}}})</script>
