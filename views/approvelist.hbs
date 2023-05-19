@@ -1,5 +1,22 @@
 <link href="styles/form.css" rel="stylesheet">
 <script src="scripts/saveBook.js"></script>
+<script>
+    const socket = io('https://ivnik20-web.onrender.com/');
+
+    socket.on('msgToClient', (message) => {
+        receive(message);
+    });
+
+    function sendMsg(message) {
+        socket.emit('msgToServer', message);
+    }
+
+    function receive(count) {
+        const click_counter = document.getElementById('click_counter');
+        click_counter.innerText =
+                'Уже предложено книг: ' + count;
+    }
+</script>
 
 <h2 class="content_h2">Предложить книгу для добавления:</h2>
 <form>
@@ -10,7 +27,8 @@
     <input type="text" class="type-1 book_form" id="book" placeholder="Название книги" required autocomplete="off"/>
     <textarea name="description" rows="2" class="type-1 book_form" id="comment" placeholder="Комментарий" required autocomplete="off"></textarea>
 </form>
-<button class = "button" id="submit" onclick="saveBook({{loggedUser.id}})"> Отправить </button>
+<button class = "button" id="submit" onclick="sendMsg('Hello'); saveBook({{loggedUser.id}})"> Отправить </button>
+<h2 class="content_h2" id = "click_counter"></h2>
 <article class="content_article">
 <table id="table" class="table">
     <thead>

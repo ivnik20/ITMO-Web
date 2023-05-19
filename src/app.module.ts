@@ -10,6 +10,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './exception.filter';
 import { AuthModule } from './auth/auth.module';
 import { UserService } from './user/services/UserService';
+import { AppGateway } from './app/app.gateway';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { UserService } from './user/services/UserService';
     UserService,
     AppService,
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
+    AppGateway,
   ],
 })
 export class AppModule {}
